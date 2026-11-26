@@ -1,0 +1,313 @@
+{
+  "zones": {
+    "ward":   { "floor": "Third Floor, Medical Ward" },
+    "labs":   { "floor": "Second Floor, Research Labs" },
+    "maint":  { "floor": "Service Wing" },
+    "lobby":  { "floor": "Ground Floor, Main Lobby" },
+    "forest": { "floor": "Outside, Forest Edge" }
+  },
+  "templates": [
+    {
+      "id": "recovery_23", "name": "Recovery Room 23", "zone": "ward", "roles": ["start"], "unique": true,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_monitor",
+      "desc": ["Your recovery room. A heart monitor beeps beside the bed you woke in.", "The air smells of antiseptic and something burnt."],
+      "fixtures": [
+        { "name": "hospital bed", "type": "scenery", "text": "Your bed. The sheets are still warm." },
+        { "name": "bedside tray", "type": "scenery", "text": "An empty tray. You already took your cane and monocular." },
+        { "name": "tall wardrobe", "type": "hide" }
+      ],
+      "obstacles": []
+    },
+    {
+      "id": "ward_corridor", "name": "Ward Corridor", "zone": "ward", "roles": ["path", "branch"], "shape": "long", "weight": 4,
+      "surface": "tile", "w": [3], "h": [7], "ambient": "amb_fluorescent",
+      "desc": ["A long hospital corridor. Fluorescent lights buzz overhead.", "Somewhere a gurney wheel squeaks, then stops."],
+      "fixtures": [ { "name": "crash cart", "type": "container" }, { "name": "linen locker", "type": "hide" } ],
+      "obstacles": ["overturned wheelchair", "abandoned gurney"]
+    },
+    {
+      "id": "nurses_station", "name": "Nurses' Station", "zone": "ward", "roles": ["path", "branch"], "weight": 3,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_monitor",
+      "desc": ["A curved nurses' station. Papers crunch under your feet.", "A phone handset dangles off the counter, humming a dial tone."],
+      "fixtures": [ { "name": "medicine cabinet", "type": "container" }, { "name": "desk drawers", "type": "container" }, { "name": "space under the counter", "type": "hide" } ],
+      "obstacles": ["fallen office chair"]
+    },
+    {
+      "id": "patient_room", "name": "Patient Room", "zone": "ward", "roles": ["branch", "path"], "weight": 4,
+      "surface": "tile", "w": [3, 5], "h": [5], "ambient": "amb_monitor",
+      "desc": ["Another patient room. The bed is empty and the rail is bent.", "A get-well balloon bumps gently against the ceiling."],
+      "fixtures": [ { "name": "bedside cabinet", "type": "container" }, { "name": "wardrobe", "type": "hide" } ],
+      "obstacles": ["IV stand"]
+    },
+    {
+      "id": "supply_closet", "name": "Supply Closet", "zone": "ward", "roles": ["branch"], "weight": 2,
+      "surface": "tile", "w": [3], "h": [3], "ambient": "amb_drip",
+      "desc": ["A cramped supply closet. Shelves press in on both sides.", "A pipe drips steadily somewhere above you."],
+      "fixtures": [ { "name": "wire shelves", "type": "container" }, { "name": "plastic bins", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "isolation_room", "name": "Isolation Room", "zone": "ward", "roles": ["branch"], "weight": 2,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_vent",
+      "desc": ["A sealed isolation room. A torn plastic curtain flaps in the air from the vent.", "The floor is sticky. You don't want to know why."],
+      "fixtures": [ { "name": "biohazard bin", "type": "container" }, { "name": "decontamination locker", "type": "hide" } ],
+      "obstacles": ["collapsed curtain frame"]
+    },
+    {
+      "id": "pharmacy", "name": "Ward Pharmacy", "zone": "ward", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "tile", "w": [5], "h": [3, 5], "ambient": "amb_freezer",
+      "desc": ["The ward pharmacy. A medicine fridge hums against the wall.", "Pill bottles roll and rattle when you move."],
+      "fixtures": [ { "name": "medicine fridge", "type": "container" }, { "name": "pill drawers", "type": "container" } ],
+      "obstacles": ["tipped-over trolley"]
+    },
+    {
+      "id": "staff_lounge", "name": "Staff Lounge", "zone": "ward", "roles": ["branch", "path"], "weight": 2, "unique": true,
+      "surface": "carpet", "w": [5], "h": [5], "ambient": "amb_vending",
+      "desc": ["A staff lounge with soft carpet. A vending machine hums in the corner.", "Someone's lunch is still on the table."],
+      "fixtures": [ { "name": "small fridge", "type": "container" }, { "name": "staff locker", "type": "hide" }, { "name": "vending machine", "type": "container" } ],
+      "obstacles": ["sofa"]
+    },
+    {
+      "id": "observation_room", "name": "Observation Room", "zone": "ward", "roles": ["branch"], "weight": 1, "unique": true,
+      "surface": "carpet", "w": [3], "h": [5], "ambient": "amb_vent",
+      "desc": ["A narrow observation room. Thick glass covers one wall; it is cold against your palm.", "A speaker grille crackles with static."],
+      "fixtures": [ { "name": "observer's desk", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "ward_stairs", "name": "Ward Stairwell", "zone": "ward", "roles": ["branch"], "weight": 1, "unique": true,
+      "surface": "grating", "w": [3], "h": [5], "ambient": "amb_vent",
+      "desc": ["A metal stairwell landing. The steps ring under your feet.", "Air moves up from the floors below."],
+      "fixtures": [ { "name": "fire hose cabinet", "type": "container" } ],
+      "obstacles": []
+    },
+
+    {
+      "id": "labs_stairs", "name": "Stairwell B", "zone": "labs", "roles": ["transition"], "unique": true,
+      "surface": "grating", "w": [3], "h": [5], "ambient": "amb_vent",
+      "desc": ["Stairwell B. You go down one flight of ringing metal steps to the research floor.", "A painted rail is cold and smooth under your hand."],
+      "fixtures": [ { "name": "fire extinguisher box", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "lab_corridor", "name": "Lab Corridor", "zone": "labs", "roles": ["path", "branch"], "shape": "long", "weight": 4,
+      "surface": "tile", "w": [3], "h": [7], "ambient": "amb_hum",
+      "desc": ["A clean white lab corridor. Air handlers hum behind the walls.", "A warning sign clicks as it swings on one hinge."],
+      "fixtures": [ { "name": "emergency cabinet", "type": "container" }, { "name": "equipment locker", "type": "hide" } ],
+      "obstacles": ["spilled sample cart"]
+    },
+    {
+      "id": "genetics_lab", "name": "Genetics Lab", "zone": "labs", "roles": ["path", "branch"], "weight": 3,
+      "surface": "tile", "w": [5, 7], "h": [5], "ambient": "amb_hum",
+      "desc": ["The genetics lab. A centrifuge spins down with a falling whine.", "Glass crunches under your feet. Something was smashed in a hurry."],
+      "fixtures": [ { "name": "sample fridge", "type": "container" }, { "name": "lab bench drawers", "type": "container" }, { "name": "fume hood", "type": "hide" } ],
+      "obstacles": ["overturned stool", "broken glass cabinet"]
+    },
+    {
+      "id": "cold_storage", "name": "Cold Storage", "zone": "labs", "roles": ["branch"], "weight": 2,
+      "surface": "grating", "w": [3, 5], "h": [5], "ambient": "amb_freezer",
+      "desc": ["Cold storage. Your breath fogs and the freezers roar.", "Metal grating under your feet is slick with frost."],
+      "fixtures": [ { "name": "chest freezer", "type": "container" }, { "name": "specimen rack", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "sample_archive", "name": "Sample Archive", "zone": "labs", "roles": ["branch"], "weight": 2,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_hum",
+      "desc": ["Rows of archive cabinets stretch in front of you.", "Every drawer is labeled in raised print and braille."],
+      "fixtures": [ { "name": "archive cabinet", "type": "container" }, { "name": "rolling shelves", "type": "hide" } ],
+      "obstacles": ["fallen drawer"]
+    },
+    {
+      "id": "clean_room", "name": "Clean Room", "zone": "labs", "roles": ["branch", "path"], "weight": 2,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_vent",
+      "desc": ["A clean room. Powerful air blows down from the ceiling.", "Your footsteps sound oddly dull in here."],
+      "fixtures": [ { "name": "gown cabinet", "type": "container" }, { "name": "air-shower booth", "type": "hide" } ],
+      "obstacles": []
+    },
+    {
+      "id": "animal_lab", "name": "Animal Lab", "zone": "labs", "roles": ["branch"], "weight": 1, "unique": true,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_vent",
+      "desc": ["The animal lab. Empty cage doors rattle in the draft.", "Whatever lived here is gone."],
+      "fixtures": [ { "name": "feed bin", "type": "container" }, { "name": "large cage cabinet", "type": "hide" } ],
+      "obstacles": ["toppled cage stack"]
+    },
+    {
+      "id": "server_room", "name": "Server Room", "zone": "labs", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "grating", "w": [5], "h": [5], "ambient": "amb_fans",
+      "desc": ["The server room. Rows of fans roar like a waterfall.", "Warm air blows from the racks."],
+      "fixtures": [ { "name": "rack drawer", "type": "container" } ],
+      "obstacles": ["loose cable bundle"]
+    },
+    {
+      "id": "hale_office", "name": "Dr. Hale's Office", "zone": "labs", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "carpet", "w": [3, 5], "h": [5], "ambient": "amb_vent",
+      "desc": ["Dr. Hale's office. Thick carpet and the smell of old coffee.", "A desk fan ticks as it turns."],
+      "fixtures": [ { "name": "desk", "type": "container" }, { "name": "filing cabinet", "type": "container" }, { "name": "coat closet", "type": "hide" } ],
+      "obstacles": []
+    },
+    {
+      "id": "decon", "name": "Decontamination Room", "zone": "labs", "roles": ["branch", "path"], "weight": 1,
+      "surface": "tile", "w": [3], "h": [5], "ambient": "amb_drip",
+      "desc": ["A decontamination room. Shower heads drip from the ceiling.", "The floor slopes toward a drain."],
+      "fixtures": [ { "name": "chemical shelf", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "lecture_room", "name": "Lecture Room", "zone": "labs", "roles": ["branch"], "weight": 1, "unique": true,
+      "surface": "carpet", "w": [7], "h": [5], "ambient": "amb_vent",
+      "desc": ["A small lecture room. Folding seats creak when the air moves them.", "A projector fan still whirs."],
+      "fixtures": [ { "name": "lectern", "type": "container" }, { "name": "space behind the seats", "type": "hide" } ],
+      "obstacles": ["folded chairs"]
+    },
+
+    {
+      "id": "boiler_room", "name": "Boiler Room", "zone": "maint", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "grating", "w": [5], "h": [5], "ambient": "amb_boiler",
+      "desc": ["The boiler room. Heat presses on your face and pipes knock and groan.", "The grating vibrates under your feet."],
+      "fixtures": [ { "name": "tool rack", "type": "container" }, { "name": "gap behind the boiler", "type": "hide" } ],
+      "obstacles": ["pipe valve"]
+    },
+    {
+      "id": "electrical_room", "name": "Electrical Room", "zone": "maint", "roles": ["branch"], "weight": 2,
+      "surface": "grating", "w": [3, 5], "h": [5], "ambient": "amb_electric",
+      "desc": ["An electrical room. Transformers buzz deep and steady.", "A sign warns of high voltage in raised letters."],
+      "fixtures": [ { "name": "parts cabinet", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "workshop", "name": "Workshop", "zone": "maint", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_hum",
+      "desc": ["A maintenance workshop. It smells of oil and sawdust.", "A vise is bolted to a workbench."],
+      "fixtures": [ { "name": "tool chest", "type": "container" }, { "name": "workbench", "type": "container" }, { "name": "storage cupboard", "type": "hide" } ],
+      "obstacles": ["sawhorse"]
+    },
+    {
+      "id": "laundry", "name": "Laundry", "zone": "maint", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_vent",
+      "desc": ["The laundry. Big dryers sit silent along the wall.", "Damp sheets hang everywhere."],
+      "fixtures": [ { "name": "laundry cart", "type": "container" }, { "name": "large laundry bin", "type": "hide" } ],
+      "obstacles": ["pile of linens"]
+    },
+    {
+      "id": "storage_bay", "name": "Storage Bay", "zone": "maint", "roles": ["branch"], "weight": 2,
+      "surface": "tile", "w": [5, 7], "h": [5], "ambient": "amb_hum",
+      "desc": ["A storage bay stacked with crates.", "Your footsteps echo off a high ceiling."],
+      "fixtures": [ { "name": "supply crate", "type": "container" }, { "name": "metal shelving", "type": "container" }, { "name": "space behind the crates", "type": "hide" } ],
+      "obstacles": ["pallet jack"]
+    },
+    {
+      "id": "vent_junction", "name": "Vent Junction", "zone": "maint", "roles": ["branch"], "weight": 1,
+      "surface": "grating", "w": [3], "h": [3], "ambient": "amb_vent",
+      "desc": ["A cramped junction of air ducts. Wind whistles through the grating.", "You have to stoop to fit."],
+      "fixtures": [ { "name": "access panel box", "type": "container" } ],
+      "obstacles": []
+    },
+
+    {
+      "id": "lobby_stairs", "name": "Stairwell A", "zone": "lobby", "roles": ["transition"], "unique": true,
+      "surface": "grating", "w": [3], "h": [5], "ambient": "amb_vent",
+      "desc": ["Stairwell A. You go down to the ground floor, one ringing metal step at a time.", "A draft comes from somewhere below. Outside air."],
+      "fixtures": [ { "name": "first aid box", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "main_lobby", "name": "Main Lobby", "zone": "lobby", "roles": ["path"], "weight": 3, "unique": true,
+      "surface": "tile", "w": [7], "h": [7], "ambient": "amb_alarm",
+      "desc": ["The main lobby. The room is huge and every sound echoes.", "A fountain trickles in the middle of the floor. Distant alarms wail outside."],
+      "fixtures": [ { "name": "reception desk", "type": "container" }, { "name": "space behind a pillar", "type": "hide" } ],
+      "obstacles": ["fountain", "toppled planter"]
+    },
+    {
+      "id": "lobby_hall", "name": "Ground Floor Hallway", "zone": "lobby", "roles": ["path", "branch"], "shape": "long", "weight": 4,
+      "surface": "carpet", "w": [3], "h": [7], "ambient": "amb_fluorescent",
+      "desc": ["A carpeted hallway. Framed certificates rattle on the walls.", "One light flickers with a buzzing click."],
+      "fixtures": [ { "name": "fire cabinet", "type": "container" }, { "name": "janitor's closet", "type": "hide" } ],
+      "obstacles": ["mop bucket"]
+    },
+    {
+      "id": "security_office", "name": "Security Office", "zone": "lobby", "roles": ["branch", "path"], "weight": 2, "unique": true,
+      "surface": "carpet", "w": [5], "h": [5], "ambient": "amb_static",
+      "desc": ["The security office. A dead radio hisses static.", "Monitors are warm but silent."],
+      "fixtures": [ { "name": "guard's desk", "type": "container" }, { "name": "equipment locker", "type": "container" }, { "name": "tall gun locker", "type": "hide" } ],
+      "obstacles": ["rolling chair"]
+    },
+    {
+      "id": "records_room", "name": "Records Room", "zone": "lobby", "roles": ["branch"], "weight": 2,
+      "surface": "carpet", "w": [5], "h": [5], "ambient": "amb_vent",
+      "desc": ["The records room. It smells of paper and dust.", "Filing cabinets line every wall."],
+      "fixtures": [ { "name": "filing cabinet", "type": "container" }, { "name": "gap between the cabinets", "type": "hide" } ],
+      "obstacles": ["box of files"]
+    },
+    {
+      "id": "cafeteria", "name": "Cafeteria", "zone": "lobby", "roles": ["branch", "path"], "weight": 2, "unique": true,
+      "surface": "tile", "w": [7], "h": [5, 7], "ambient": "amb_vending",
+      "desc": ["The cafeteria. Chairs are knocked over everywhere.", "A tray slides off a table with a clatter."],
+      "fixtures": [ { "name": "vending machine", "type": "container" }, { "name": "serving counter", "type": "container" }, { "name": "space under a table", "type": "hide" } ],
+      "obstacles": ["pile of chairs", "overturned table"]
+    },
+    {
+      "id": "kitchen", "name": "Kitchen", "zone": "lobby", "roles": ["branch"], "weight": 2, "unique": true,
+      "surface": "tile", "w": [5], "h": [5], "ambient": "amb_drip",
+      "desc": ["A steel kitchen. A tap drips into a deep sink.", "Pots hang overhead and clink together."],
+      "fixtures": [ { "name": "pantry shelves", "type": "container" }, { "name": "walk-in fridge", "type": "hide" } ],
+      "obstacles": ["fallen pot rack"]
+    },
+    {
+      "id": "mail_room", "name": "Mail Room", "zone": "lobby", "roles": ["branch"], "weight": 1, "unique": true,
+      "surface": "carpet", "w": [3], "h": [5], "ambient": "amb_vent",
+      "desc": ["A small mail room. Envelopes slide under your feet.", "Sorting cubbies cover the wall."],
+      "fixtures": [ { "name": "sorting cubbies", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "loading_dock", "name": "Loading Dock", "zone": "lobby", "roles": ["path", "branch"], "weight": 2, "unique": true,
+      "surface": "grating", "w": [5, 7], "h": [5], "ambient": "amb_wind",
+      "desc": ["The loading dock. A big roll-up door rattles in the wind.", "You can smell pine trees and rain."],
+      "fixtures": [ { "name": "shipping crate", "type": "container" }, { "name": "space behind a forklift", "type": "hide" } ],
+      "obstacles": ["pallet stack"]
+    },
+
+    {
+      "id": "parking_lot", "name": "Parking Lot", "zone": "forest", "roles": ["path", "branch"], "weight": 2, "unique": true,
+      "surface": "gravel", "w": [7], "h": [5, 7], "ambient": "amb_wind",
+      "desc": ["A gravel parking lot. Wind pushes at you and rain ticks on car roofs.", "A car alarm chirps once, far away."],
+      "fixtures": [ { "name": "car trunk", "type": "container" }, { "name": "space under a truck", "type": "hide" } ],
+      "obstacles": ["abandoned car"]
+    },
+    {
+      "id": "forest_path", "name": "Forest Path", "zone": "forest", "roles": ["path", "branch"], "shape": "long", "weight": 4,
+      "surface": "grass", "w": [3], "h": [7], "ambient": "amb_forest",
+      "desc": ["A narrow forest path. Wet grass brushes your ankles.", "Pine needles drip and branches creak overhead."],
+      "fixtures": [ { "name": "hollow log", "type": "hide" } ],
+      "obstacles": ["fallen branch", "big rock"]
+    },
+    {
+      "id": "clearing", "name": "Clearing", "zone": "forest", "roles": ["branch", "path"], "weight": 2,
+      "surface": "grass", "w": [5], "h": [5], "ambient": "amb_forest",
+      "desc": ["A small clearing. The ground is soft and the air is open.", "Birds have gone quiet."],
+      "fixtures": [ { "name": "abandoned backpack", "type": "container" }, { "name": "thick bush", "type": "hide" } ],
+      "obstacles": ["tree stump"]
+    },
+    {
+      "id": "creek_bank", "name": "Creek Bank", "zone": "forest", "roles": ["branch", "path"], "weight": 2,
+      "surface": "gravel", "w": [5], "h": [5], "ambient": "amb_creek",
+      "desc": ["A creek bank. Water rushes over stones beside you.", "Loose gravel shifts with every step."],
+      "fixtures": [ { "name": "tackle box", "type": "container" } ],
+      "obstacles": ["boulder"]
+    },
+    {
+      "id": "ranger_shed", "name": "Ranger Shed", "zone": "forest", "roles": ["branch"], "weight": 1, "unique": true,
+      "surface": "wood", "w": [3], "h": [3], "ambient": "amb_wind",
+      "desc": ["A tiny ranger shed. Rain drums on the tin roof.", "The wooden floor creaks."],
+      "fixtures": [ { "name": "supply locker", "type": "container" } ],
+      "obstacles": []
+    },
+    {
+      "id": "forest_edge", "name": "Forest Edge", "zone": "forest", "roles": ["exit"], "unique": true,
+      "surface": "grass", "w": [5], "h": [5], "ambient": "amb_forest",
+      "desc": ["The forest edge. The trees thin out and the fence ends here.", "The rescue beacon pulses through a gap in the fence."],
+      "fixtures": [],
+      "obstacles": []
+    }
+  ]
+}

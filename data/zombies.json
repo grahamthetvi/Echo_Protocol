@@ -1,0 +1,40 @@
+{
+  "types": [
+    {
+      "id": "shambler", "name": "Shambler", "sound": "z_shambler",
+      "signature": "a slow, wet groan",
+      "speed": 0.9, "chaseSpeed": 1.25, "hearing": 6, "hp": 2, "damage": 22, "armor": 0,
+      "opensDoors": true, "doorTime": 2.5, "vocalEvery": [4, 8]
+    },
+    {
+      "id": "crawler", "name": "Crawler", "sound": "z_crawler",
+      "signature": "a low scraping along the floor",
+      "speed": 0.6, "chaseSpeed": 0.95, "hearing": 9, "hp": 2, "damage": 15, "armor": 0,
+      "opensDoors": false, "doorTime": 0, "vocalEvery": [3, 6]
+    },
+    {
+      "id": "runner", "name": "Runner", "sound": "z_runner",
+      "signature": "fast, raspy breathing",
+      "speed": 1.0, "chaseSpeed": 2.3, "hearing": 8, "hp": 2, "damage": 16, "armor": 0,
+      "opensDoors": true, "doorTime": 1.0, "vocalEvery": [2, 4]
+    },
+    {
+      "id": "screamer", "name": "Screamer", "sound": "z_screamer",
+      "signature": "a high, shuddering wail",
+      "speed": 0.8, "chaseSpeed": 1.1, "hearing": 10, "hp": 1, "damage": 10, "armor": 0,
+      "opensDoors": true, "doorTime": 2.0, "vocalEvery": [5, 9], "screams": true
+    },
+    {
+      "id": "armored", "name": "Armored Guard", "sound": "z_armored",
+      "signature": "the heavy clank of metal armor",
+      "speed": 0.7, "chaseSpeed": 1.0, "hearing": 5, "hp": 4, "damage": 30, "armor": 0.25,
+      "opensDoors": true, "doorTime": 1.5, "vocalEvery": [3, 6]
+    },
+    {
+      "id": "dummy", "name": "Training Dummy", "sound": "z_shambler",
+      "signature": "a slow, rubbery groan",
+      "speed": 0.7, "chaseSpeed": 0.9, "hearing": 8, "hp": 2, "damage": 0, "armor": 0,
+      "opensDoors": false, "doorTime": 0, "vocalEvery": [3, 5], "harmless": true
+    }
+  ]
+}
