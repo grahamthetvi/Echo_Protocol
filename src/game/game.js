@@ -321,7 +321,7 @@ export class Game {
     this.busy(COST.turn);
     this.audio.play('cane_sweep', { gain: 0.25 });
     const reach = reachables(this).filter((r) => r.side === p.facing && r.kind !== 'fixture');
-    const extra = reach.length ? ` ${capitalize(reach[0].text.replace(/, ahead$/, ''))} ahead.` : '';
+    const extra = reach.length ? ` ${capitalize(reach[0].text)}.` : '';
     this.say(`${capitalize(DIR_NAME[p.facing])}.${extra}`, { priority: 'urgent', record: false });
     this.events.emit('turn', { facing: p.facing });
   }

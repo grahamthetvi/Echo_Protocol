@@ -121,6 +121,16 @@ export class WebSpeech extends SpeechBase {
       setTimeout(() => this._finish(item), 0);
       return;
     }
+    // Chrome can drop an utterance queued in the same instant as cancel(); wait a beat.
+    if (performance.now() - (this.lastCancel || 0) < 60) {
+      setTimeout(() => {
+        if (this.current === item) this._utter(item);
+      }, 60);
+      return;
+    }
+    this._utter(item);
+  }
+  _utter(item) {
     const profile = VOICE_PROFILES[item.voice] || VOICE_PROFILES.narrator;
     const u = new SpeechSynthesisUtterance(item.text);
     const v = this.voiceFor(profile);
@@ -144,6 +154,7 @@ export class WebSpeech extends SpeechBase {
   }
   _cancel() {
     clearTimeout(this.watchdog);
+    this.lastCancel = performance.now();
     if (this.synth) this.synth.cancel();
   }
 }
