@@ -252,11 +252,31 @@ export class LogPlayer {
   }
   onExit() {
     if (this.playing) this.game.speech.stop();
+    if (this.recorded) {
+      this.playing = false;
+      this.recorded.stop();
+      this.game.clock.release('logAudio');
+    }
   }
   onInput(inp) {
     const a = inp.action;
     if (a === 'interact' && !this.playing) {
       this.playing = true;
+      // A recorded voice file (listed in assets/audio/manifest.json under the log's id) wins over TTS.
+      if (this.game.audio.has(this.log.id)) {
+        this.game.clock.hold('logAudio');
+        const h = this.game.audio.play(this.log.id, { bus: 'ui' });
+        this.recorded = h;
+        h.onEnded = () => {
+          this.game.clock.release('logAudio');
+          if (!this.playing) return;
+          this.playing = false;
+          if (!this.game.player.logsHeard.includes(this.log.id)) this.game.player.logsHeard.push(this.log.id);
+          this.game.events.emit('logHeard', { log: this.log.id });
+          if (this.game.stack.top === this) this.game.stack.pop(this);
+        };
+        return;
+      }
       const lines = this.log.lines;
       lines.forEach((l, i) => this.game.speech.say(l, {
         category: 'log',

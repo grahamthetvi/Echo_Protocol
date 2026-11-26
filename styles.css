@@ -1,0 +1,113 @@
+/* Echo Protocol. Visuals are optional and decorative; the game is played by ear. */
+:root {
+  --bg: #0f380f;
+  --fg: #9bbc0f;
+  --mid: #306230;
+  --accent: #8bac0f;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+body.high-contrast {
+  --bg: #000;
+  --fg: #fff;
+  --mid: #fff;
+  --accent: #ff0;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+#cover {
+  position: fixed;
+  inset: 0;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.lockdown, body.lockdown * { cursor: none !important; }
+
+#screen {
+  max-width: 44rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+#screen h1 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5em;
+}
+.big { font-size: clamp(1.2rem, 3vw, 2rem); }
+.teacher-note {
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--accent);
+  border: 2px solid var(--mid);
+  padding: 1rem;
+  text-align: left;
+}
+kbd, code {
+  font-family: ui-monospace, monospace;
+  border: 1px solid var(--mid);
+  padding: 0 0.3em;
+}
+#screen.running .teacher-note { display: none; }
+
+body.visuals-on #screen { display: none; }
+#map {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+#hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.4rem 1rem;
+  font: 700 clamp(1rem, 2.5vw, 1.6rem) ui-monospace, monospace;
+  background: var(--bg);
+  color: var(--fg);
+  border-bottom: 3px solid var(--mid);
+}
+#caption {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 3.5em;
+  padding: 0.6rem 1rem;
+  font-size: clamp(1.1rem, 2.6vw, 1.8rem);
+  line-height: 1.35;
+  background: var(--bg);
+  color: var(--fg);
+  border-top: 3px solid var(--mid);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Nothing in this game moves for decoration, and nothing ever flashes. */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

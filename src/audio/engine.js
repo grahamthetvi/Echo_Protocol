@@ -53,6 +53,11 @@ export class AudioEngine {
     });
   }
 
+  /** True when a sound id has audio available (recorded or synthesized). */
+  has(id) {
+    return this.buffers.has(id) || !!RECIPES[id];
+  }
+
   renderRecipe(id) {
     const r = RECIPES[id];
     if (!r || this.buffers.has(id)) return;
@@ -177,6 +182,7 @@ export class AudioEngine {
     };
     src.onended = () => {
       handle.stopped = true;
+      handle.onEnded?.();
       try {
         (panner || lp).disconnect();
       } catch { /* ignore */ }
@@ -299,6 +305,7 @@ export class NullAudio {
   setMono() {}
   async loadGroup() {}
   setListener(x, y, facing) { this.listener = { x, y, facing }; }
+  has() { return false; }
   play(id, opts) { this.played.push(id); return { ...NULL_HANDLE, stopped: false, id, opts }; }
   tone() { return NULL_HANDLE; }
   startTone() { return NULL_TONE; }
