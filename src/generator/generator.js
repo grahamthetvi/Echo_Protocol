@@ -457,6 +457,11 @@ function makeLocks(rng, profile, lengthMin, lockEdges, path, keyRooms, doors) {
     const side = DIRS.find((d) => a.cx + DVEC[d][0] === b.cx && a.cy + DVEC[d][1] === b.cy);
     const door = doors.find((d) => d.id === a.doors[side]);
     door.state = 'closed';
+    if (door.kind === 'passage') {
+      // A locked way between two outdoor areas is a fence gate.
+      door.kind = 'door';
+      door.gate = true;
+    }
     const lock = { id: `L${i}`, doorId: door.id, kind: kinds[i] };
     door.lock = lock.id;
     switch (lock.kind) {
