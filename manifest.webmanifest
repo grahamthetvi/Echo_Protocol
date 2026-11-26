@@ -1,0 +1,10 @@
+{
+  "name": "Echo Protocol",
+  "short_name": "Echo Protocol",
+  "description": "A self-voicing audio zombie escape game, playable without sight.",
+  "start_url": "./",
+  "display": "fullscreen",
+  "background_color": "#0f380f",
+  "theme_color": "#0f380f",
+  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

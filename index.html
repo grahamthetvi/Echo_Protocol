@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Echo Protocol</title>
+  <meta name="description" content="Echo Protocol: a free, self-voicing audio game. Escape a zombie-overrun research facility by sound alone.">
+  <meta name="theme-color" content="#0f380f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- One full-screen element covers the page so nothing is mouse-clickable.
+       role="application" lets screen-reader users' keys reach the game directly. -->
+  <div id="cover" tabindex="0" role="application" aria-roledescription="audio game" aria-label="Echo Protocol. Press Enter to begin. The game speaks for itself; headphones recommended." autofocus>
+    <main id="screen">
+      <h1>Echo Protocol</h1>
+      <p id="status-line" class="big">Loading…</p>
+      <div class="teacher-note">
+        <p>This is an audio game. It speaks everything itself, so the student can turn their screen reader off.</p>
+        <p>Press <kbd>Enter</kbd> to start. The game goes full screen to keep stray clicks out.</p>
+        <p>Teacher panel: hold <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> (back quote) for 3 seconds.</p>
+        <p>Replay a layout with a link like <code>?seed=amber-fox-42&amp;length=15</code>.</p>
+      </div>
+      <noscript><p class="big">Echo Protocol needs JavaScript turned on.</p></noscript>
+    </main>
+    <canvas id="map" hidden aria-hidden="true"></canvas>
+    <div id="hud" hidden aria-hidden="true"></div>
+    <div id="caption" hidden aria-hidden="true"></div>
+  </div>
+  <!-- Screen-reader fallback, used when lockdown or self-voicing is off. -->
+  <div id="live-polite" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <div id="live-assertive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+  <input id="file-input" type="file" accept="application/json,.json" hidden aria-hidden="true" tabindex="-1">
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

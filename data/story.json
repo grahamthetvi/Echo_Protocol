@@ -1,0 +1,177 @@
+{
+  "intro": [
+    "You wake up in a hospital bed. Your head is pounding.",
+    "On your wrist is a plastic band with raised letters. You run your thumb across them. Subject 23. Antibody positive. Do not sedate.",
+    "Your hands find your folding cane and your monocular on the bedside tray. You take them both.",
+    { "voice": "intercom", "text": "Attention. Containment breach at Clearwater Research Facility. All personnel evacuate immediately." },
+    { "voice": "intercom", "text": "Sterilization protocol is armed. The site will be sterilized in {time}." },
+    { "voice": "operator", "text": "Subject 23, this is Kestrel, extraction team. Your blood is the cure. Get out of the building and reach our beacon at the forest edge. Listen for it." }
+  ],
+  "headphones": "Echo Protocol. Headphones are recommended. Sounds come from where things really are, left, right, ahead or behind.",
+  "intercom": [
+    "All staff: report to decontamination. This is not a drill.",
+    "Remaining personnel: evacuate by the forest service road. Do not use the elevators.",
+    "Reminder: the sterilization countdown cannot be stopped from inside the building.",
+    "Containment teams have withdrawn. Seal doors behind you.",
+    "Infected patients respond to sound. Move quietly.",
+    "Power fluctuations reported on the research floor. Some doors may require manual power routing."
+  ],
+  "timeWarning": "Sterilization in {time}.",
+  "logs": [
+    { "id": "log_hale_1", "title": "Dr. Hale, day one", "voice": "hale", "lines": [
+      "Doctor Mara Hale, research log, day one. Subject 23 arrived today. Antibody levels unlike anything we have seen.",
+      "Bright kid. Asked me to give directions using clock positions instead of pointing. Twelve o'clock is straight ahead. I am going to remember that." ] },
+    { "id": "log_das_1", "title": "Nurse Das, night shift", "voice": "das", "lines": [
+      "Nurse Priya Das, night shift. 23 asked for braille labels on the medicine. Facilities said there was no budget.",
+      "So I made them myself with the label maker. Took an hour. Should have been done on day one." ] },
+    { "id": "log_ortiz_1", "title": "Officer Ortiz, door locks", "voice": "ortiz", "lines": [
+      "Officer Tomas Ortiz, security. The new door locks are sound-based. Chimes, knocks, tones. The director's idea.",
+      "If you're stuck at one, somebody probably left the answer close by. They always do." ] },
+    { "id": "log_hale_2", "title": "Dr. Hale, day nine", "voice": "hale", "lines": [
+      "Day nine. We isolated the antibody from 23's blood. We are calling it A-23.",
+      "One sample is in cold storage on this floor. If the worst happens, that sample must leave this building." ] },
+    { "id": "log_voss_1", "title": "Director Voss, trial memo", "voice": "voss", "lines": [
+      "Director Voss. The human trial proceeds tonight. Doctor Hale objects. Noted. Overruled.",
+      "The subject is to remain sedated during transport. The wristband will be removed." ] },
+    { "id": "log_das_2", "title": "Nurse Das, the turn", "voice": "das", "lines": [
+      "The isolation patients stopped reacting to light. But they turn toward sound. Every single one.",
+      "Keep the halls quiet. Walk, don't run. Soft feet." ] },
+    { "id": "log_ortiz_2", "title": "Officer Ortiz, field notes", "voice": "ortiz", "lines": [
+      "They hear everything. The slow ones groan. The crawlers scrape along the floor and can't work a door handle.",
+      "The fast ones breathe like they ran a mile. You hear that rasp, you find a locker and you hide." ] },
+    { "id": "log_hale_3", "title": "Dr. Hale, day twelve", "voice": "hale", "lines": [
+      "It's out. Voss sealed the labs with us inside.",
+      "I'm hiding the door codes where 23 can find them. Braille labels, beep recorders, the old phone line. 23 will know what to do." ] },
+    { "id": "log_voss_2", "title": "Director Voss, to oversight", "voice": "voss", "lines": [
+      "To the oversight committee. Sterilization is regrettable but necessary.",
+      "Subject 23 is an acceptable loss." ] },
+    { "id": "log_das_3", "title": "Nurse Das, supplies", "voice": "das", "lines": [
+      "I left juice boxes and bandages anywhere I could reach. Running wears you out, and when you're worn out you breathe loud.",
+      "Drink something. Catch your breath. Then move." ] },
+    { "id": "log_ortiz_3", "title": "Officer Ortiz, screamers", "voice": "ortiz", "lines": [
+      "Screamers. Thin and loud. When one wails, every one of them in earshot comes running.",
+      "If you hear the wail, don't wait around to see who answers." ] },
+    { "id": "log_hale_4", "title": "Dr. Hale, last entry", "voice": "hale", "lines": [
+      "23, if you are hearing this: you are not an acceptable loss. You never were.",
+      "You are the reason any of us has a chance. Get out. And if you can, take A-23 with you." ] }
+  ],
+  "memos": [
+    "A memo, read aloud: Reminder, all staff. Clock directions only when guiding patients. Twelve is straight ahead.",
+    "A memo, read aloud: The cafeteria will be closed until further notice. Do not feed the patients in isolation.",
+    "A memo, read aloud: Facilities request. Please stop propping fire doors open with chairs.",
+    "A memo, read aloud: To whoever keeps leaving juice boxes in the supply closets. Thank you. Signed, everyone.",
+    "A memo, read aloud: Sound locks are now active on secure doors. Staff will receive the chimes by voice recording.",
+    "A memo, read aloud: Shuttle to the forest service road leaves from the loading dock every hour."
+  ],
+  "clues": {
+    "memo": "A memo is taped here. It reads: New code for the {door}: {code}. Do not write it down. Someone wrote it down anyway.",
+    "phone_ring": "A telephone is ringing on the {fixture}.",
+    "phone": "You pick up the phone. A recorded voice says: If anyone can hear this, the code for the {door} is {code}. Again: {code}.",
+    "recorder_beeps": "An old voice recorder labeled {door}. You press play. Count the beeps: each group of beeps is one digit, and a long tone means zero.",
+    "braille": "A braille label is fixed to the {fixture}. Your fingers read the {door} code: number sign, then {dots}.",
+    "braille_card": "Your braille reader card confirms the digits: {code}.",
+    "braille_nocard": "That's a number sign, so the letters a through j stand for the digits 1 through 9, and then 0.",
+    "largeprint": "A large-print sign is taped to the {fixture}. Through your monocular you read: {door} code, {code}.",
+    "melody": "A music box with a raised-letter tag: Chime for the {door}. Repeat it with the arrow keys. It plays the chime now.",
+    "rhythm": "A voice recorder labeled Ortiz, the knock. It plays the secret knock for the {door}. You will tap it back with the Space bar.",
+    "breaker": "A breaker panel with a raised-letter note: Door power for the {door} is on {rule}."
+  },
+  "breakerRules": {
+    "lowest": "the circuit with the lowest hum",
+    "highest": "the circuit with the highest hum",
+    "pulsing": "the circuit whose hum pulses"
+  },
+  "phoneVoice": "hale",
+  "radio": {
+    "noRadio": "You don't have a radio.",
+    "noBattery": "The radio is dead. It needs a battery.",
+    "open": "Radio crackles. Kestrel here. Go ahead, 23.",
+    "steps": [
+      {
+        "operator": "Kestrel here. Who's on this channel?",
+        "choices": [
+          { "text": "This is Subject 23. I'm the patient with the antibody.", "good": true, "reply": "Copy, 23. Good to hear your voice. We're holding at the forest edge." },
+          { "text": "Hang up.", "end": true, "reply": "You switch the radio off." }
+        ]
+      },
+      {
+        "operator": "Head for the red exit signs. You'll see them past the lobby.",
+        "choices": [
+          { "text": "I can't rely on signs. Please give me compass directions and how many rooms.", "good": true, "advocate": "route", "reply": "Understood. Thanks for telling me. Here's your route." },
+          { "text": "Okay. I'll figure it out.", "reply": "Copy. Kestrel out." }
+        ]
+      },
+      {
+        "operator": "Command says the sterilization clock can't be changed.",
+        "choices": [
+          { "text": "I'm carrying the cure in my blood. Ask command to hold the clock so I can get out safely.", "good": true, "advocate": "time", "reply": "You make a good case. Stand by. Command agrees to hold the clock. You have extra time." },
+          { "text": "Understood.", "reply": "Copy. Move fast, 23." }
+        ]
+      }
+    ],
+    "later": "Kestrel here. Reading you, 23. Here's what I can see from the facility plans."
+  },
+  "endings": {
+    "win": [
+      "You step through the gap in the fence. Strong hands guide you toward the helicopter.",
+      "You press the cold case into Kestrel's hands. Antibody Sample A-23. The cure, and you, are safe.",
+      "Behind you, the facility goes silent. Ahead of you, the world gets a second chance."
+    ],
+    "partial": [
+      "You step through the gap in the fence and the extraction team pulls you aboard.",
+      "You made it out. Without the sample, the researchers will have to start again from your blood. It will take longer, but there is still hope."
+    ],
+    "secret": [
+      "You step through the gap in the fence, the antibody case under your arm.",
+      "You also carry every recording. Hale, Das, Ortiz, even Voss. The whole truth about Clearwater.",
+      "Kestrel listens to one log and goes quiet. Then they say: Nobody is calling you an acceptable loss again. Secret ending found."
+    ],
+    "sterilized": [
+      "The countdown reaches zero. A deep thunder rolls through the building.",
+      "Clearwater Research Facility is sterilized. Try again, 23. You know the way a little better now."
+    ],
+    "infected": [
+      "The bites are too many, even for your antibodies. Your strength fades.",
+      "The infection wins this time. Try again, 23. Move quietly and pick your fights."
+    ]
+  },
+  "downed": [
+    "Everything goes dark.",
+    "You wake up in the {room}, aching. Your antibodies fought off the bite, but it took a toll. Infection {infection} of {max}."
+  ],
+  "tutorial": {
+    "intro": "Welcome to the practice room. Here the clock is stopped and the dummy can't hurt you. Press R any time to hear an instruction again.",
+    "steps": [
+      { "say": "Press the Up arrow, or W, to take a step forward.", "expect": "action:forward" },
+      { "say": "Good. You heard your footsteps on tile. Now press the Right arrow, or D, to turn right.", "expect": "action:turnRight" },
+      { "say": "Now press the Left arrow, or A, to turn left.", "expect": "action:turnLeft" },
+      { "say": "Press the Down arrow, or S, to step backward.", "expect": "action:back" },
+      { "say": "Press C for your compass. It tells you which way you face and where you are.", "expect": "action:compass" },
+      { "say": "Press Q to ask: where am I, and what can I do here?", "expect": "action:where" },
+      { "say": "Press P to send an echolocation ping. Listen to the echoes. Close walls echo fast and bright. Doorways sound like open air.", "expect": "action:ping" },
+      { "say": "Press L to listen around you. You'll hear what is making sounds and where.", "expect": "action:listen" },
+      { "say": "There is a cabinet in one corner of this room. Walk until it is within reach, then press Space or Enter to search it.", "expect": "event:search" },
+      { "say": "Press I to open your inventory. Use the Up and Down arrows to browse, and press I again to close it.", "expect": "event:inventoryClosed" },
+      { "say": "Press T to hear the time remaining. In a real game, the facility is on a countdown.", "expect": "action:time" },
+      { "say": "There's a door in the east wall. Walk through it. If the door is closed, walking into it opens it.", "expect": "event:enterRoom:practice_b" },
+      { "say": "A training dummy is in this room. It groans like a zombie, but it can't hurt you. When it grabs you, press F to fight. Hit it twice.", "expect": "event:zombieKilled" },
+      { "say": "Lockers let you hide. Walk next to the locker in this room and press E.", "expect": "event:hide" },
+      { "say": "While hidden, zombies lose track of you. Press E again to come out.", "expect": "event:unhide" },
+      { "say": "Hold Shift while you walk to run. It is faster, but loud. Hold Control while you walk to sneak. It's slow, but quiet. Press V to switch between walking, sneaking and running if holding keys is hard. Try moving now.", "expect": "action:forward" },
+      { "say": "During a real game, H gives a hint, but each hint costs a little time. Z tells you your health and noise. M reads the map. X taps your cane ahead. Press H now to try it.", "expect": "action:hint" },
+      { "say": "To pause, hold the Escape key for about one and a half seconds. A quick tap won't do anything. Try it now.", "expect": "event:paused" },
+      { "say": "Last one. Listen for the beacon. It's beeping beyond the doorway on the far side of this room. Walk to it and step through to finish.", "expect": "event:exit" }
+    ],
+    "done": "Tutorial complete. You're ready, 23."
+  },
+  "controlsHelp": [
+    "Up and Down arrows, or W and S: step forward and back. Left and Right arrows, or A and D: turn.",
+    "Space or Enter: interact. Open doors, search, pick up, read and use.",
+    "R repeats the last message. Shift plus R repeats the whole room description.",
+    "Q: where am I and what can I do. C: compass. L: listen around you. P: echolocation ping. X: tap your cane ahead.",
+    "I: inventory. H: hint, which costs a little time. T: time remaining. Z: health and noise. M: the tactile map.",
+    "Hold Shift to run, which is loud. Hold Control to sneak, which is quiet. V switches between walk, sneak and run.",
+    "F: fight. E: hide when a locker or hiding spot is within reach.",
+    "Hold Escape for one and a half seconds to pause. Slash or F1: hear these controls again."
+  ]
+}

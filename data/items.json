@@ -1,0 +1,24 @@
+{
+  "items": [
+    { "id": "keycard_blue",   "name": "blue keycard",   "kind": "keycard", "color": "blue",   "desc": "A blue plastic keycard. It fits a blue card reader." },
+    { "id": "keycard_red",    "name": "red keycard",    "kind": "keycard", "color": "red",    "desc": "A red plastic keycard with a notched corner so you can tell it by touch." },
+    { "id": "keycard_green",  "name": "green keycard",  "kind": "keycard", "color": "green",  "desc": "A green keycard with two raised dots on one side." },
+    { "id": "keycard_yellow", "name": "yellow keycard", "kind": "keycard", "color": "yellow", "desc": "A yellow keycard with a rough, textured strip." },
+    { "id": "keycard_violet", "name": "violet keycard", "kind": "keycard", "color": "violet", "desc": "A violet keycard with a round hole punched in it." },
+
+    { "id": "battery",  "name": "battery",  "plural": "batteries",  "kind": "consumable", "stack": true, "desc": "A heavy nine-volt battery. Powers the rescue radio." },
+    { "id": "juice",    "name": "juice box", "plural": "juice boxes", "kind": "consumable", "stack": true, "use": "drink", "effect": { "exhaustion": -45 }, "desc": "Apple juice. Drinking it eases exhaustion, so your breathing stays quiet." },
+    { "id": "food",     "name": "granola bar", "plural": "granola bars", "kind": "consumable", "stack": true, "use": "eat", "effect": { "exhaustion": -25, "health": 8 }, "desc": "A crunchy granola bar. Eases exhaustion and helps a little with health." },
+    { "id": "bandage",  "name": "bandage",  "plural": "bandages", "kind": "consumable", "stack": true, "use": "apply", "effect": { "health": 35 }, "desc": "A roll of bandage. Restores health." },
+    { "id": "lure",     "name": "noise-maker", "plural": "noise-makers", "kind": "consumable", "stack": true, "use": "throw", "desc": "A wind-up alarm clock. Throw it and its ringing draws zombies away from you." },
+    { "id": "wedge",    "name": "door wedge", "plural": "door wedges", "kind": "consumable", "stack": true, "use": "barricade", "desc": "A rubber door wedge. Jam it under a door next to you so zombies cannot open it." },
+
+    { "id": "crowbar",      "name": "crowbar",      "kind": "tool", "desc": "A heavy crowbar. Better than fists in a fight, and it can pry open jammed doors." },
+    { "id": "cane",         "name": "folding cane", "kind": "tool", "desc": "Your folding cane. It sweeps ahead as you walk and warns you of walls and obstacles. Press X to tap ahead." },
+    { "id": "monocular",    "name": "monocular",    "kind": "tool", "use": "look", "desc": "Your handheld monocular. Use it to read large-print signs, including exit signs across a room." },
+    { "id": "braille_card", "name": "braille reader card", "kind": "tool", "desc": "A pocket braille reference card. With it, braille number labels are double-checked and read back as digits." },
+    { "id": "radio",        "name": "rescue radio", "kind": "tool", "use": "call", "desc": "A rescue radio. Each call uses battery power. The extraction team is on the other end." },
+    { "id": "tuning_fork",  "name": "tuning fork",  "kind": "key", "desc": "A steel tuning fork tagged 'Sonic lock reference'. It sounds the reference tone for a pitch lock." },
+    { "id": "cure",         "name": "antibody sample", "kind": "quest", "desc": "A cold metal case holding Antibody Sample A-23, made from your blood. This is the cure." }
+  ]
+}

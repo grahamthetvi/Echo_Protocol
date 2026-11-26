@@ -1,0 +1,5 @@
+{
+  "comment": "Recorded audio that replaces synthesized placeholders. Each entry maps a sound id (see src/audio/recipes.js) to an Opus file in assets/audio/, loaded lazily by group (core, ward, labs, maint, lobby, forest). Sounds with no file use the built-in synthesizer.",
+  "format": "Opus in .ogg or .webm, mono 24-48 kbps for voice and ambience; stereo or higher only for music.",
+  "sounds": {}
+}
