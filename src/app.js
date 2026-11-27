@@ -6,7 +6,7 @@ import { formatDuration, plural } from './core/format.js';
 import { loadData } from './data/load.js';
 import { WebSpeech } from './audio/speech.js';
 import { AudioEngine } from './audio/engine.js';
-import { Input, keyName } from './input/input.js';
+import { Input, keyName, comboFor } from './input/input.js';
 import { UIStack } from './ui/stack.js';
 import { Menu, TextEntry, confirmMenu } from './ui/menu.js';
 import { Lockdown } from './ui/lockdown.js';
@@ -76,6 +76,7 @@ export class App {
       keymap: this.settings.keymap,
       onInput: (inp) => this.onInput(inp),
       onRelease: (inp) => this.stack.release(inp),
+      allowZoom: () => this.settings.allowZoom !== false,
     });
     window.addEventListener('blur', () => this.autoPause('Window lost focus.'));
     document.addEventListener('visibilitychange', () => {
@@ -310,6 +311,7 @@ export class App {
         },
         toggle('Speak echolocation summary', () => s.pingSpeech, (v) => { s.pingSpeech = v; }),
         toggle('Announce loud noise', () => s.announceNoise, (v) => { s.announceNoise = v; }),
+        toggle('Pause clock while descriptions play', () => s.pauseClockForDescriptions, (v) => { s.pauseClockForDescriptions = v; }, 'Room descriptions, Q, L and Shift R stop the countdown while they are spoken. Story logs always pause it'),
       ],
     });
     const visualsMenu = () => new Menu(this.ctx, {
@@ -318,6 +320,7 @@ export class App {
         toggle('Show map on screen', () => s.visuals.enabled, (v) => { s.visuals.enabled = v; }, 'For teachers, friends and low vision. The game never needs it'),
         toggle('High contrast', () => s.visuals.highContrast, (v) => { s.visuals.highContrast = v; }),
         toggle('Large sprites', () => s.visuals.largeSprites, (v) => { s.visuals.largeSprites = v; }),
+        toggle('Allow browser zoom', () => s.allowZoom, (v) => { s.allowZoom = v; }, 'Control plus, Control minus and Control zero zoom the page, also in full screen'),
         toggle('Captions', () => s.visuals.captions, (v) => { s.visuals.captions = v; }),
       ],
     });
@@ -361,8 +364,8 @@ export class App {
             this.speech.say('Cancelled.', { priority: 'urgent' });
             return;
           }
-          const isMod = /^(Shift|Control|Alt|Meta)/.test(e.code);
-          const combo = isMod ? e.code : `${e.shiftKey ? 'Shift+' : ''}${e.ctrlKey ? 'Ctrl+' : ''}${e.code}`;
+          // Same naming as live input (Ctrl+Alt+Shift+Key), or the new key would never match.
+          const combo = comboFor(e);
           const lost = [];
           for (const [a, keys] of Object.entries(s.keymap)) {
             if (a === action) continue;
@@ -621,6 +624,8 @@ export class App {
         { label: 'Reveal whole map on screen', type: 'toggle', get: () => s.visuals.revealMap, set: (v) => { s.visuals.revealMap = v; save(); } },
         { label: 'High contrast visuals', type: 'toggle', get: () => s.visuals.highContrast, set: (v) => { s.visuals.highContrast = v; save(); } },
         { label: 'Assist mode for new games', type: 'toggle', get: () => s.assist, set: (v) => { s.assist = v; save(); } },
+        { label: 'Pause clock while descriptions play', type: 'toggle', get: () => s.pauseClockForDescriptions, set: (v) => { s.pauseClockForDescriptions = v; save(); } },
+        { label: 'Allow browser zoom', type: 'toggle', get: () => s.allowZoom, set: (v) => { s.allowZoom = v; save(); } },
         { label: 'Fullscreen lockdown', type: 'toggle', get: () => s.lockdown, set: (v) => { s.lockdown = v; save(); if (v) this.lockdown.enter(); else this.lockdown.exit(); } },
         { label: 'Export session log as CSV', onSelect: () => this.download(`echo-session-log-${dateStamp()}.csv`, this.log.toCSV(), 'text/csv') },
         { label: 'Export session log as JSON', onSelect: () => this.download(`echo-session-log-${dateStamp()}.json`, JSON.stringify(this.log.toJSON(), null, 2), 'application/json') },

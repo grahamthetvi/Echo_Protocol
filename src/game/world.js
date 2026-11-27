@@ -205,10 +205,14 @@ export class World {
     return steps;
   }
 
-  /** Tile path for zombies. canPass(door) decides doorways. Returns [{room,x,y}] excluding start. */
-  tilePath(from, to, canPass, maxNodes = 4000) {
+  /**
+   * Tile path for zombies. canPass(door) decides doorways. Returns [{room,x,y}] excluding start.
+   * avoid ({room,x,y}) is a tile the path must not cross, such as the player's, unless it is the goal.
+   */
+  tilePath(from, to, canPass, maxNodes = 4000, avoid = null) {
     const startK = tk(from.room, from.x, from.y);
     const goalK = tk(to.room, to.x, to.y);
+    const avoidK = avoid ? tk(avoid.room, avoid.x, avoid.y) : null;
     if (startK === goalK) return [];
     const prev = new Map([[startK, null]]);
     const q = [from];
@@ -225,7 +229,7 @@ export class World {
         else if (res.type === 'blocked' && res.x === to.x && res.y === to.y && c.room === to.room) nxt = null;
         if (!nxt) continue;
         const nk = tk(nxt.room, nxt.x, nxt.y);
-        if (prev.has(nk)) continue;
+        if (prev.has(nk) || (nk === avoidK && nk !== goalK)) continue;
         prev.set(nk, { k: ck, node: c, door: res.type === 'door' ? res.door : null });
         q.push(nxt);
       }

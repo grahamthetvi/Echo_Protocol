@@ -20,6 +20,8 @@ import { interactFeature } from '../puzzles/clues.js';
 import { openLockPuzzle } from '../puzzles/locks.js';
 import { InventoryMenu, MapView } from './overlays.js';
 
+// Speech that pauses the countdown. 'desc' (room descriptions, Q, L, Shift+R) can be
+// turned off with the pauseClockForDescriptions setting; logs and narration always pause it.
 const HOLD_CATEGORIES = new Set(['desc', 'log', 'narration']);
 const SURFACE_NOISE = { carpet: 0.7, grass: 0.8, tile: 1, wood: 1.1, gravel: 1.3, grating: 1.4 };
 const MODE_NOISE = { sneak: 1, walk: 3, run: 7 };
@@ -150,7 +152,7 @@ export class Game {
       return;
     }
     this.speech.tick?.(dt);
-    this.clock.setHold('speech', HOLD_CATEGORIES.has(this.speech.category));
+    this.clock.setHold('speech', this.speechHoldsClock(this.speech.category));
     this.clock.setHold('pause', this.paused);
     if (this.paused) return;
     if (this.narrating) {
@@ -217,6 +219,11 @@ export class Game {
         this.say(line, { voice: 'intercom', category: 'narration' });
       }
     }
+  }
+
+  speechHoldsClock(category) {
+    if (!HOLD_CATEGORIES.has(category)) return false;
+    return category !== 'desc' || this.settings.pauseClockForDescriptions !== false;
   }
 
   announceTime(a) {
@@ -297,11 +304,6 @@ export class Game {
     this.flags.tooTiredSaid = false;
     return m;
   }
-  /** Zombie types are named with their sound so players learn the signatures. */
-  knownZombieType() {
-    return true;
-  }
-
   isSneaking() {
     return this.effectiveMode() === 'sneak';
   }
@@ -640,9 +642,6 @@ export class Game {
     this.stats.items += n;
     const it = this.data.itemById.get(id);
     if (it && (it.kind === 'keycard' || it.kind === 'key' || it.kind === 'quest')) this.difficulty.onProgress('item');
-    if (id === 'battery' && inv.radio && this.player.radioCharge <= 0) {
-      // a fresh battery goes straight into the radio
-    }
     if (!quiet) this.say(`Got ${withArticle(this.itemName(id))}.`, { priority: 'normal' });
     this.events.emit('item', { id, n });
   }
@@ -733,6 +732,16 @@ export class Game {
     this.audio.play('ui_alert', { bus: 'alerts' });
     this.say(`${z.def.name} heard you! ${capitalize(relativeWords(Math.round(zp.x - here.x), Math.round(zp.y - here.y), this.player.facing))}.`, { priority: 'urgent', record: false });
     this.events.emit('chase', { zombie: z.id, type: z.type });
+  }
+
+  /** A zombie that was searching for the player stops. Tell a hidden player it is safer now. */
+  onZombieGaveUp(z) {
+    const p = this.player;
+    if (!p.hidden || this.ended) return;
+    const hop = this.world.roomDistances(p.room).get(z.room)?.hops ?? 99;
+    if (hop > 1) return;
+    this.say(`The ${z.def.name} loses interest and wanders off.`, { priority: 'normal', record: false });
+    this.events.emit('zombieGaveUp', { zombie: z.id, type: z.type });
   }
 
   announceScream(z) {
