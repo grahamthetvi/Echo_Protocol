@@ -117,7 +117,9 @@ side room, never on the fastest path, so exploring is rewarded.
 
 **The clock:** it runs in real time while you play. It pauses while the pause menu is open, while
 an audio log you chose to hear is playing, during mandatory narration, and while room descriptions
-are being spoken. It is announced automatically at 75%, 50%, 25% and 10% left, at 5 minutes and
+are being spoken. Teachers can turn off the pause for descriptions (Settings, Gameplay, *Pause clock
+while descriptions play*, or the teacher panel), since otherwise repeating Q, L or Shift+R stops the
+clock; story logs and narration always pause it. It is announced automatically at 75%, 50%, 25% and 10% left, at 5 minutes and
 1 minute, and for each of the final 10 seconds. Press **T** any time.
 
 **Seed codes:** each game starts by speaking a short code such as "amber fox 42". The same code and
@@ -171,6 +173,10 @@ so it cannot be used). The spoken panel lets you:
 a more forgiving rhythm check, five infections instead of three, and cheaper hints. Difficulty also
 **adapts during a run**: deaths, near misses and time stuck ease the pressure; steady progress raises
 it a little. Stuck players are offered a hint.
+
+**Browser zoom:** Ctrl+Plus, Ctrl+Minus and Ctrl+0 (Cmd on a Mac) always reach the browser, also in
+lockdown and full screen, so low-vision players can enlarge the on-screen map, HUD and captions.
+Teachers can turn this off with *Allow browser zoom* in Settings, Visuals, or the teacher panel.
 
 Other options: voice, speech rate (0.5–3×), pitch and volume; separate volume sliders for effects,
 ambience and music, zombie alert cues and menu sounds; **mono downmix**; directions as words or

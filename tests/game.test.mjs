@@ -4,6 +4,7 @@ import { nodeData } from './helpers.mjs';
 import { generateFacility } from '../src/generator/generator.js';
 import { fastestRouteBudget } from '../src/generator/costs.js';
 import { makeGame, Autopilot } from './autopilot.mjs';
+import { reachables } from '../src/game/describe.js';
 
 const data = await nodeData();
 
@@ -98,4 +99,68 @@ test('zombies hear noise and engage; fighting can kill them', () => {
     ap.settle();
   }
   assert.ok(z.dead || g.player.infection > 0, 'fight resolves');
+});
+
+/** Put the player next to a hiding spot with a zombie two steps away; returns null if no spot fits. */
+function hideScenario(seedIndex, settings) {
+  const f = generateFacility({ seedIndex, lengthMin: 15, data });
+  const env = makeGame(f, data, { settings });
+  const g = env.game;
+  g.start();
+  env.speech.tick();
+  const z = g.zombies.alive[0];
+  for (const r of g.world.rooms.values()) {
+    if (!r.fixtures?.some((x) => x.type === 'hide')) continue;
+    for (let y = 0; y < r.h; y++) {
+      for (let x = 0; x < r.w; x++) {
+        if (!g.world.isWalkable(r.id, x, y)) continue;
+        Object.assign(g.player, { room: r.id, x, y });
+        if (!reachables(g).some((q) => q.kind === 'fixture' && q.fixture.type === 'hide')) continue;
+        for (const [dx, dy] of [[2, 0], [-2, 0], [0, 2], [0, -2]]) {
+          if (!g.world.isWalkable(r.id, x + dx, y + dy)) continue;
+          Object.assign(z, { room: r.id, x: x + dx, y: y + dy, state: 'idle', stunned: 0, target: null, path: null });
+          g.zombies.startChase(z);
+          return { env, g, z };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+test('a zombie that loses a hidden player gives up instead of waiting by the hiding spot', () => {
+  let checked = 0;
+  for (let seed = 0; seed < 60 && checked < 5; seed++) {
+    const s = hideScenario(seed);
+    if (!s) continue;
+    const { env, g, z } = s;
+    g.toggleHide();
+    if (!g.player.hidden) continue; // the hide roll can fail mid-chase; try another layout
+    checked++;
+    let gaveUp = false;
+    env.events.on('zombieGaveUp', () => { gaveUp = true; });
+    for (let t = 0; t < 30 && !gaveUp; t += 0.1) g.update(0.1);
+    assert.ok(gaveUp, `seed ${seed}: zombie still ${z.state} next to the hiding spot after 30 s`);
+    assert.notEqual(z.state, 'chase');
+    assert.notEqual(z.state, 'investigate');
+    assert.match(env.speech.transcript, /loses interest/);
+  }
+  assert.ok(checked >= 3, 'found enough hiding layouts to test');
+});
+
+test('pausing the clock for descriptions can be turned off', () => {
+  const run = (pause) => {
+    const f = generateFacility({ seedIndex: 9, lengthMin: 5, data });
+    const env = makeGame(f, data, { settings: { pauseClockForDescriptions: pause } });
+    env.game.start();
+    env.game.narrating = false; // skip the intro
+    env.speech.stop();
+    env.speech.tick = () => {}; // keep the description "speaking"
+    env.speech.say('A long room description.', { category: 'desc' });
+    const before = env.game.clock.remaining;
+    for (let i = 0; i < 20; i++) env.game.update(0.1);
+    return before - env.game.clock.remaining;
+  };
+  assert.ok(run(true) < 0.01, 'clock holds while a description plays');
+  assert.ok(run(false) > 1.9, 'clock runs when the setting is off');
 });

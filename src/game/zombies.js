@@ -130,7 +130,8 @@ export class ZombieSystem {
       }
 
       if (z.state === 'chase') {
-        if (p.hidden && !this.adjacentToPlayer(z)) {
+        if (p.hidden) {
+          // Lost sight of the player: search the spot, then give up (see move()).
           z.state = 'investigate';
           z.linger = 4;
         } else {
@@ -154,6 +155,13 @@ export class ZombieSystem {
 
       this.move(z, dt);
     }
+  }
+
+  /** The target is the player's own tile and the zombie is already next to it. */
+  blockedByPlayerAt(z, target) {
+    const p = this.game.player;
+    if (target.room !== p.room || target.x !== p.x || target.y !== p.y) return false;
+    return this.adjacentToPlayer(z);
   }
 
   startChase(z) {
@@ -188,14 +196,20 @@ export class ZombieSystem {
       }
     }
     if (!z.target) return;
-    if (z.room === z.target.room && z.x === z.target.x && z.y === z.target.y) {
+    // Zombies never step onto the player's tile, so a search aimed at a hidden player's
+    // spot ends one step short of it. Count that as arriving, or it would wait there forever.
+    const atTarget = (z.room === z.target.room && z.x === z.target.x && z.y === z.target.y)
+      || (z.state === 'investigate' && this.blockedByPlayerAt(z, z.target));
+    if (atTarget) {
       if (z.state === 'investigate') {
         z.linger -= dt;
         if (z.linger <= 0) {
           z.state = 'idle';
           z.lured = false;
           z.target = null;
+          z.path = null;
           z.linger = 0;
+          g.onZombieGaveUp?.(z);
         }
       }
       return;
@@ -203,7 +217,8 @@ export class ZombieSystem {
     if (z.state === 'investigate' && z.linger <= 0) z.linger = this.rng.range(3, 6);
 
     if (!z.path) {
-      z.path = g.world.tilePath(z, z.target, this.canPass(z));
+      // Only a chasing zombie heads for the player; others walk around them.
+      z.path = g.world.tilePath(z, z.target, this.canPass(z), 4000, z.state === 'chase' ? null : g.player);
       if (!z.path) {
         // Can't get there (closed door for a Crawler, locked door...). Give up.
         z.target = null;
@@ -228,6 +243,8 @@ export class ZombieSystem {
       // Never walk into the player's tile; adjacency triggers the encounter instead.
       if (next.room === g.player.room && next.x === g.player.x && next.y === g.player.y) {
         z.stepAcc = 0;
+        // Not chasing: the player is just in the way, so plan a route around them.
+        if (z.state !== 'chase') z.path = null;
         break;
       }
       if (next.door && next.door.kind !== 'passage' && next.door.state !== 'open') {

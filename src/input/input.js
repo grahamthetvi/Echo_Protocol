@@ -4,6 +4,12 @@
 const MODIFIER_CODES = new Set(['ShiftLeft', 'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'MetaLeft', 'MetaRight']);
 export const ESC_HOLD_MS = 1500;
 export const TEACHER_HOLD_MS = 3000;
+const ZOOM_CODES = new Set(['Equal', 'Minus', 'Digit0', 'NumpadAdd', 'NumpadSubtract', 'Numpad0']);
+
+/** Ctrl (or Cmd) with plus, minus or zero: the browser's own zoom keys. */
+export function isZoomKey(e) {
+  return (e.ctrlKey || e.metaKey) && !e.altKey && ZOOM_CODES.has(e.code);
+}
 
 export function comboFor(e) {
   if (MODIFIER_CODES.has(e.code)) return e.code;
@@ -30,8 +36,9 @@ export function resolveAction(lookup, e) {
 }
 
 export class Input {
-  constructor({ target = globalThis.window, keymap, onInput, onRelease }) {
+  constructor({ target = globalThis.window, keymap, onInput, onRelease, allowZoom = () => true }) {
     this.target = target;
+    this.allowZoom = allowZoom;
     this.onInput = onInput;
     this.onRelease = onRelease;
     this.held = new Set();
@@ -61,6 +68,8 @@ export class Input {
     clearTimeout(this.teacherTimer);
   }
   keydown(e) {
+    // Low-vision players need the browser's zoom: let Ctrl+Plus/Minus/0 through untouched.
+    if (!this.capture && isZoomKey(e) && this.allowZoom()) return;
     // Stop the browser from scrolling, opening find bars, reloading, etc.
     e.preventDefault();
     e.stopPropagation();
@@ -95,6 +104,7 @@ export class Input {
     this.onInput({ action, code: e.code, key: e.key, repeat, shift: e.shiftKey, ctrl: e.ctrlKey, event: e });
   }
   keyup(e) {
+    if (isZoomKey(e) && this.allowZoom()) return;
     e.preventDefault();
     this.held.delete(e.code);
     if (e.code === 'Backquote') clearTimeout(this.teacherTimer);

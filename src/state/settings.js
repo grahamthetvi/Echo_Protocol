@@ -42,6 +42,8 @@ export const DEFAULT_SETTINGS = {
   pingSpeech: true,
   directionStyle: 'words', // or 'clock'
   announceNoise: true,
+  pauseClockForDescriptions: true, // room descriptions, Q, L, Shift+R stop the countdown
+  allowZoom: true, // let Ctrl+Plus / Ctrl+Minus / Ctrl+0 reach the browser
   assist: false,
   selfVoicing: true,
   lockdown: true,

@@ -7,7 +7,7 @@ import { checkRhythm, checkSequence, checkKeypad, brailleDots, breakerAnswer, pi
 import { Difficulty } from '../src/game/difficulty.js';
 import { SessionLog } from '../src/state/sessionlog.js';
 import { importText, exportText } from '../src/state/saves.js';
-import { buildLookup, resolveAction } from '../src/input/input.js';
+import { buildLookup, resolveAction, comboFor, isZoomKey } from '../src/input/input.js';
 import { DEFAULT_KEYMAP } from '../src/state/settings.js';
 import { scanDirection } from '../src/game/echo.js';
 
@@ -135,4 +135,24 @@ test('echolocation scan finds walls and doorways', () => {
   assert.equal(east.dist, 3);
   const north = scanDirection(w, 'practice_a', 2, 2, 'N');
   assert.deepEqual([north.kind, north.dist], ['wall', 3]);
+});
+
+test('remapped keys with modifiers are stored the way live input names them', () => {
+  const ev = { code: 'KeyJ', ctrlKey: true, shiftKey: true, altKey: false };
+  const l = buildLookup({ ...DEFAULT_KEYMAP, interact: [comboFor(ev)] });
+  assert.equal(comboFor(ev), 'Ctrl+Shift+KeyJ');
+  assert.equal(resolveAction(l, ev), 'interact');
+  assert.equal(resolveAction(l, { code: 'KeyJ' }), null, 'bare J is not bound');
+  assert.equal(comboFor({ code: 'ControlLeft', ctrlKey: true }), 'ControlLeft');
+});
+
+test('browser zoom keys are recognized and never bound to game actions', () => {
+  for (const code of ['Equal', 'Minus', 'Digit0', 'NumpadAdd', 'NumpadSubtract']) {
+    assert.ok(isZoomKey({ code, ctrlKey: true }), code);
+    assert.ok(isZoomKey({ code, metaKey: true }), `Cmd ${code}`);
+    assert.ok(!isZoomKey({ code }), `${code} alone`);
+  }
+  assert.ok(!isZoomKey({ code: 'KeyW', ctrlKey: true }), 'Ctrl+W (sneak forward) is not zoom');
+  const bound = Object.values(DEFAULT_KEYMAP).flat();
+  assert.ok(!bound.some((k) => ['Equal', 'Minus', 'Digit0'].includes(k.split('+').pop())));
 });

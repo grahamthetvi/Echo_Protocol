@@ -227,7 +227,8 @@ export function listenText(game) {
     const d = Math.hypot(zp.x - here.x, zp.y - here.y);
     const hop = dists.get(z.room);
     const where = hop.hops === 0 ? '' : hop.closed ? ', muffled behind a door' : ', in the next room';
-    const name = game.knownZombieType(z.type) ? `a ${z.def.name}: ${z.def.signature}` : z.def.signature;
+    // Zombie types are always named with their sound so players learn the signatures.
+    const name = `a ${z.def.name}: ${z.def.signature}`;
     const state = z.state === 'chase' ? ', coming for you' : z.state === 'investigate' ? ', searching' : '';
     sounds.push({ d, text: `${name}, ${directionWords(zp.x - here.x, zp.y - here.y, p.facing, game.settings.directionStyle)}, ${distanceWord(d)}${where}${state}` });
   }
